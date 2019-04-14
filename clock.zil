@@ -1,0 +1,69 @@
+"CLOCK for M3
+Copyright (C) 1984 Infocom, Inc.  All rights reserved."
+
+<CONSTANT C-TABLELEN 300>
+
+<GLOBAL C-TABLE <ITABLE NONE %<COND (<GASSIGNED? PREDGEN> 150)
+				    (ELSE 300)>>>
+
+<GLOBAL C-INTS 300>
+
+<CONSTANT C-INTLEN 6>
+
+<CONSTANT C-ENABLED? 0>
+
+<CONSTANT C-TICK 1>
+
+<CONSTANT C-RTN 2>
+
+<ROUTINE QUEUE (RTN TICK "AUX" CINT)
+	 #DECL ((RTN) ATOM (TICK) FIX (CINT) <PRIMTYPE VECTOR>)
+	 <PUT <SET CINT <INT .RTN>> ,C-TICK .TICK>
+	 .CINT>
+
+<ROUTINE INT (RTN "AUX" E C INT)
+	 #DECL ((RTN) ATOM (E C INT) <PRIMTYPE VECTOR>)
+	 <SET E <REST ,C-TABLE ,C-TABLELEN>>
+	 <SET C <REST ,C-TABLE ,C-INTS>>
+	 <REPEAT ()
+		 <COND (<==? .C .E>
+			<SETG C-INTS <- ,C-INTS ,C-INTLEN>>
+			<SET INT <REST ,C-TABLE ,C-INTS>>
+			<PUT .INT ,C-RTN .RTN>
+			<RETURN .INT>)
+		       (<EQUAL? <GET .C ,C-RTN> .RTN> <RETURN .C>)>
+		 <SET C <REST .C ,C-INTLEN>>>>
+
+<GLOBAL CLOCK-WAIT <>>
+
+<ROUTINE CLOCKER ("AUX" C E TICK (FLG <>) VAL)
+	 #DECL ((C E) <PRIMTYPE VECTOR> (TICK) FIX ;(FLG) ;<OR FALSE ATOM>)
+	 <COND (,CLOCK-WAIT <SETG CLOCK-WAIT <>> <RFALSE>)>
+	 <SETG PRESENT-TIME <+ ,PRESENT-TIME 1>>
+	 <COND (<G? <SETG MOVES <+ ,MOVES 1>> 59>
+		<SETG MOVES 0>
+		<COND (<G? <SETG SCORE <+ ,SCORE 1>> 23>
+		       <SETG SCORE 0>)>)>
+	 <SET C <REST ,C-TABLE ,C-INTS>>
+	 <SET E <REST ,C-TABLE ,C-TABLELEN>>
+	 <REPEAT ()
+		 <COND (<==? .C .E>
+			%<DEBUG-CODE
+			  <COND (,SHADOW <SETG PRSO ,SHADOW> <V-$TABLE>)>>
+			<RETURN .FLG>)
+		       (<NOT <0? <GET .C ,C-ENABLED?>>>
+			<SET TICK <GET .C ,C-TICK>>
+			<COND (<0? .TICK>)
+			      (T
+			       <PUT .C ,C-TICK <- .TICK 1>>
+			       <COND (<AND <NOT <G? .TICK 1>>
+				           <SET VAL
+						%<DEBUG-CODE
+						  <D-APPLY
+						   "Int" <GET .C ,C-RTN>>
+						  <APPLY
+						   <GET .C ,C-RTN>>>>>
+				      <COND (<OR <NOT .FLG>
+						 <==? .VAL ,M-FATAL>>
+					     <SET FLG .VAL>)>)>)>)>
+		 <SET C <REST .C ,C-INTLEN>>>>
