@@ -1,0 +1,200 @@
+	.FSTR FSTR?1,"the "	;1756	879
+	.FSTR FSTR?2,", "	;943	944
+	.FSTR FSTR?3,"and "	;746	374
+	.FSTR FSTR?4,". "	;708	709
+	.FSTR FSTR?5,"you "	;566	284
+	.FSTR FSTR?6,"The "	;528	177
+	.FSTR FSTR?7,"to "	;473	474
+	.FSTR FSTR?8,"You "	;399	134
+	.FSTR FSTR?9,"is "	;376	377
+	.FSTR FSTR?10,"of "	;372	373
+	.FSTR FSTR?11,"It's "	;350	71
+	.FSTR FSTR?12,"with "	;300	101
+	.FSTR FSTR?13,"that "	;300	101
+	.FSTR FSTR?14,"This "	;300	76
+	.FSTR FSTR?15,"have "	;282	95
+	.FSTR FSTR?16,"your "	;258	87
+	.FSTR FSTR?17,"doesn't "	;252	37
+	.FSTR FSTR?18,"I "	;228	229
+	.FSTR FSTR?19,"are "	;226	114
+	.FSTR FSTR?20,"don't "	;225	46
+	.FSTR FSTR?21,"for "	;210	106
+	.FSTR FSTR?22,"this "	;207	70
+	.FSTR FSTR?23,"but "	;200	101
+	.FSTR FSTR?24,"He "	;200	101
+	.FSTR FSTR?25,"in "	;198	199
+	.FSTR FSTR?26,"from "	;192	65
+	.FSTR FSTR?27,"can't "	;185	38
+	.FSTR FSTR?28,"about "	;184	47
+	.FSTR FSTR?29,"He's "	;180	37
+	.FSTR FSTR?30,"was "	;176	89
+	.FSTR FSTR?31,"would "	;176	45
+	.FSTR FSTR?32,"I'm "	;176	45
+	.FSTR FSTR?33,"There "	;175	36
+	.FSTR FSTR?34,"been "	;171	58
+	.FSTR FSTR?35,"That's "	;161	24
+	.FSTR FSTR?36,"looks "	;160	41
+	.FSTR FSTR?37,"has "	;152	77
+	.FSTR FSTR?38,"What "	;152	39
+	.FSTR FSTR?39,"his "	;150	76
+	.FSTR FSTR?40,"think "	;148	38
+	.FSTR FSTR?41,"already "	;144	25
+	.FSTR FSTR?42,"something "	;144	19
+	.FSTR FSTR?43,"She "	;141	48
+	.FSTR FSTR?44,"seems "	;140	36
+	.FSTR FSTR?45,"It "	;134	68
+	.FSTR FSTR?46,"costume"	;130	27
+	.FSTR FSTR?47,"what "	;129	44
+	.FSTR FSTR?48,"Ashcroft "	;128	17
+	.FSTR FSTR?49,"like "	;126	43
+	.FSTR FSTR?50,"you're "	;126	22
+	.FSTR FSTR?51,"just "	;123	42
+	.FSTR FSTR?52,"isn't "	;120	25
+	.FSTR FSTR?53,"I've "	;115	24
+	.FSTR FSTR?54,"There's "	;112	15
+	.FSTR FSTR?55,"here"	;110	56
+	.FSTR FSTR?56,"wearing "	;108	19
+	.FSTR FSTR?57,"on "	;107	108
+	.FSTR FSTR?58,"You're "	;105	16
+	.FSTR FSTR?59,"south "	;104	27
+	.FSTR FSTR?60,"murder"	;104	27
+	.FSTR FSTR?61,"That "	;104	27
+	.FSTR FSTR?62,"not "	;102	52
+	.FSTR FSTR?63,"she's "	;100	21
+	.FSTR FSTR?64,"out "	;98	50
+	.FSTR FSTR?65,"fireplace"	;98	15
+	.FSTR FSTR?66,"Richard "	;98	15
+	.FSTR FSTR?67,"more "	;96	33
+	.FSTR FSTR?68,"which "	;96	25
+	.FSTR FSTR?69,"front "	;96	25
+	.FSTR FSTR?70,"someone "	;96	17
+	.FSTR FSTR?71,"she "	;94	48
+	.FSTR FSTR?72,"one "	;94	48
+	.FSTR FSTR?73,"door "	;93	32
+	.FSTR FSTR?74,"her "	;92	47
+	.FSTR FSTR?75,"large "	;92	24
+	.FSTR FSTR?76,"could "	;92	24
+	.FSTR FSTR?77,"it "	;90	91
+	.FSTR FSTR?78,"around "	;90	19
+	.FSTR FSTR?79,"didn't "	;90	16
+	.FSTR FSTR?80,"ballroom"	;90	16
+	.FSTR FSTR?81,"as "	;88	89
+	.FSTR FSTR?82,"that"	;88	45
+	.FSTR FSTR?83,"it's "	;88	23
+	.FSTR FSTR?84,"he's "	;88	23
+	.FSTR FSTR?85,"very "	;87	30
+	.FSTR FSTR?86,"be "	;85	86
+	.FSTR FSTR?87,"nothing "	;84	15
+	.FSTR FSTR?88,"costume "	;84	15
+	.FSTR FSTR?89,"he "	;82	83
+	.FSTR FSTR?90,"into "	;81	28
+	.FSTR FSTR?91,"at "	;80	81
+	.FSTR FSTR?92,"north "	;80	21
+	.FSTR FSTR?93,"telephone "	;80	11
+	.FSTR FSTR?94,"certainly "	;80	11
+	.FSTR FSTR?95,"can "	;78	40
+	.FSTR FSTR?96,"some "	;78	27
+
+
+;word frequency table of 96 most common words
+
+WORDS::	.TABLE
+	FSTR?1
+	FSTR?2
+	FSTR?3
+	FSTR?4
+	FSTR?5
+	FSTR?6
+	FSTR?7
+	FSTR?8
+	FSTR?9
+	FSTR?10
+	FSTR?11
+	FSTR?12
+	FSTR?13
+	FSTR?14
+	FSTR?15
+	FSTR?16
+	FSTR?17
+	FSTR?18
+	FSTR?19
+	FSTR?20
+	FSTR?21
+	FSTR?22
+	FSTR?23
+	FSTR?24
+	FSTR?25
+	FSTR?26
+	FSTR?27
+	FSTR?28
+	FSTR?29
+	FSTR?30
+	FSTR?31
+	FSTR?32
+	FSTR?33
+	FSTR?34
+	FSTR?35
+	FSTR?36
+	FSTR?37
+	FSTR?38
+	FSTR?39
+	FSTR?40
+	FSTR?41
+	FSTR?42
+	FSTR?43
+	FSTR?44
+	FSTR?45
+	FSTR?46
+	FSTR?47
+	FSTR?48
+	FSTR?49
+	FSTR?50
+	FSTR?51
+	FSTR?52
+	FSTR?53
+	FSTR?54
+	FSTR?55
+	FSTR?56
+	FSTR?57
+	FSTR?58
+	FSTR?59
+	FSTR?60
+	FSTR?61
+	FSTR?62
+	FSTR?63
+	FSTR?64
+	FSTR?65
+	FSTR?66
+	FSTR?67
+	FSTR?68
+	FSTR?69
+	FSTR?70
+	FSTR?71
+	FSTR?72
+	FSTR?73
+	FSTR?74
+	FSTR?75
+	FSTR?76
+	FSTR?77
+	FSTR?78
+	FSTR?79
+	FSTR?80
+	FSTR?81
+	FSTR?82
+	FSTR?83
+	FSTR?84
+	FSTR?85
+	FSTR?86
+	FSTR?87
+	FSTR?88
+	FSTR?89
+	FSTR?90
+	FSTR?91
+	FSTR?92
+	FSTR?93
+	FSTR?94
+	FSTR?95
+	FSTR?96
+	.ENDT
+
+	.ENDI

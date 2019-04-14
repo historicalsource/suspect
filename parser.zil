@@ -448,6 +448,7 @@ Check your manual for more details." CR>
 <GLOBAL P-NUMBER 0>
 <GLOBAL P-EXCHANGE 0>
 
+
 <ROUTINE ORPHAN-MERGE ("AUX" (CNT -1) TEMP VERB BEG END (ADJ <>) WRD) 
    <SETG P-OFLAG <>>
    <COND (<WT? <SET WRD <GET <GET ,P-ITBL ,P-VERBN> 0>>
@@ -464,9 +465,7 @@ Check your manual for more details." CR>
 	       <NOT .ADJ>
 	       <NOT <==? .VERB <GET ,P-OTBL ,P-VERB>>>>
 	  <RFALSE>)
-	 (<==? ,P-NCN 2> <RFALSE>)
-	 (<AND ,P-CONT
-	       <==? .VERB ,ACT?TELL>>
+	 (<==? ,P-NCN 2>
 	  <RFALSE>)
 	 (<==? <GET ,P-OTBL ,P-NC1> 1>
 	  <COND (<OR <==? <SET TEMP <GET ,P-ITBL ,P-PREP1>>
@@ -474,27 +473,29 @@ Check your manual for more details." CR>
 		     <0? .TEMP>>
 		 <COND (.ADJ
 			<PUT ,P-OTBL ,P-NC1 <REST ,P-LEXV 2>>
-			;<PUT ,P-OTBL ,P-NC1L <REST ,P-LEXV 6>>)
+			<COND (<0? <GET ,P-ITBL ,P-NC1L>>
+			       <PUT ,P-ITBL ,P-NC1L <REST ,P-LEXV 6>>)>
+			<COND (<0? ,P-NCN>
+			       <SETG P-NCN 1>)>)
 		       (T
 			<PUT ,P-OTBL ,P-NC1 <GET ,P-ITBL ,P-NC1>>
 			;<PUT ,P-OTBL ,P-NC1L <GET ,P-ITBL ,P-NC1L>>)>
-		 <COND (<EQUAL? <GET ,P-ITBL ,P-NC1L> 0>
-			<PUT ,P-ITBL ,P-NC1L <REST ,P-LEXV 6>>)>
 		 <PUT ,P-OTBL ,P-NC1L <GET ,P-ITBL ,P-NC1L>>)
-		(T <RFALSE>)>)
+		(T
+		 <RFALSE>)>)
 	 (<==? <GET ,P-OTBL ,P-NC2> 1>
 	  <COND (<OR <==? <SET TEMP <GET ,P-ITBL ,P-PREP1>>
 			  <GET ,P-OTBL ,P-PREP2>>
 		     <0? .TEMP>>
 		 <COND (.ADJ
 			<PUT ,P-ITBL ,P-NC1 <REST ,P-LEXV 2>>
-			;<PUT ,P-ITBL ,P-NC1L <REST ,P-LEXV 6>>)>
+			<COND (<0? <GET ,P-ITBL ,P-NC1L>>
+			       <PUT ,P-ITBL ,P-NC1L <REST ,P-LEXV 6>>)>)>
 		 <PUT ,P-OTBL ,P-NC2 <GET ,P-ITBL ,P-NC1>>
-		 <COND (<EQUAL? <GET ,P-ITBL ,P-NC1L> 0>
-			<PUT ,P-ITBL ,P-NC1L <REST ,P-LEXV 6>>)>
 		 <PUT ,P-OTBL ,P-NC2L <GET ,P-ITBL ,P-NC1L>>
 		 <SETG P-NCN 2>)
-		(T <RFALSE>)>)
+		(T
+		 <RFALSE>)>)
 	 (,P-ACLAUSE
 	  <COND (<AND <NOT <==? ,P-NCN 1>> <NOT .ADJ>>
 		 <SETG P-ACLAUSE <>>
@@ -506,8 +507,11 @@ Check your manual for more details." CR>
 		 <REPEAT ()
 			 <SET WRD <GET .BEG 0>>
 			 <COND (<==? .BEG .END>
-				<COND (.ADJ <ACLAUSE-WIN .ADJ> <RETURN>)
-				      (T <SETG P-ACLAUSE <>> <RFALSE>)>)
+				<COND (.ADJ
+				       <ACLAUSE-WIN .ADJ>
+				       <RETURN>)
+				      (T
+				       <SETG P-ACLAUSE <>> <RFALSE>)>)
 			       (<AND <NOT .ADJ>
 				     <OR <BTST <GETB .WRD ,P-PSOFF>
 					       ,PS?ADJECTIVE> ;"same as WT?"
@@ -533,13 +537,13 @@ Check your manual for more details." CR>
    <PUTB ,P-VTBL 3 <GETB ,P-OVTBL 3>>
    <PUT ,P-OTBL ,P-VERBN ,P-VTBL>
    <PUTB ,P-VTBL 2 0>
-   <COND (<NOT <==? <GET ,P-OTBL ,P-NC2> 0>> <SETG P-NCN 2>)
-	 (T <SETG P-NCN 1>)>
+   ;<AND <NOT <==? <GET ,P-OTBL ,P-NC2> 0>> <SETG P-NCN 2>>
    <REPEAT ()
 	   <COND (<G? <SET CNT <+ .CNT 1>> ,P-ITBLLEN>
 		  <SETG P-MERGED T>
 		  <RTRUE>)
-		 (T <PUT ,P-ITBL .CNT <GET ,P-OTBL .CNT>>)>>
+		 (T
+		  <PUT ,P-ITBL .CNT <GET ,P-OTBL .CNT>>)>>
    T>
 
 <ROUTINE ACLAUSE-WIN (ADJ) 
@@ -938,11 +942,11 @@ Check your manual for more details." CR>
 		      <TELL "(">
 		      <COND (<NOT <0? .PREP>>
 			     <PRINTB <PREP-FIND .PREP>>
+			     <COND (<AND <EQUAL? .PREP ,W?DOWN>
+					 <FSET? .OBJ ,FURNITURE>>
+				    <TELL " on">)>
 			     <THE? .OBJ>
-			     <TELL " ">
-			     ;<COND (<NOT <FSET? .OBJ ,PERSON>>
-				    <TELL " the ">)
-				   (T <TELL " ">)>)>
+			     <TELL " ">)>
 		      <TELL D .OBJ ")" CR>
 		      .OBJ)>)
 	      (T <SETG P-GWIMBIT 0> <RFALSE>)>>   
@@ -1387,7 +1391,7 @@ Check your manual for more details." CR>
 		      <PRINTB <GET .TMP 0>>)
 		     (T
 		      <WORD-PRINT <GETB .TMP 2> <GETB .TMP 3>>)>
-	       <TELL "\"." CR>
+	       <TELL ".\"" CR>
 	       <RFALSE>)
 	      (T)>>  
  

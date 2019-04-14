@@ -361,7 +361,7 @@ sits on a walnut secretary in one corner.")
 	       (<AND <VERB? PUT>
 		     ,PRSI
 		     <NOT <FSET? ,PRSI ,OPENBIT>>>
-		<TELL "You must open the " 'WINDOW-SEAT " first." CR>)
+		<TELL ,YOU-MUST "open the " 'WINDOW-SEAT " first." CR>)
 	       (<AND <VERB? PUT> <EQUAL? ,PRSO ,CORPSE>>
 		<TELL
 "Your name wouldn't be Brewster, by any chance?" CR>
@@ -370,7 +370,7 @@ sits on a walnut secretary in one corner.")
 		<TELL
 "A " 'WINDOW-SEAT " is a bench underneath a window that often has storage
 space inside it. This one overlooks the front of the house and down the hill.
-In \"Arsenic and Old Lace\", there were several bodies hidden in "
+In \"Arsenic and Old Lace,\" there were several bodies hidden in "
 A ,WINDOW-SEAT "." CR>)>>
 
 <OBJECT MORNING-ROOM-DOOR
@@ -755,7 +755,11 @@ answer coherently or civilly." CR>)
 		<TELL
 "The guest is rumpled and crumpled from the recent melee. He appears to
 be wearing the remains of a devil costume. Fortunately, he has no
-pitchfork." CR>)>>
+pitchfork." CR>)
+	       (<AND <NOT <IN? ,GUEST ,HERE>>
+		     <EQUAL? ,PLAYER ,WINNER>>
+		<PERFORM ,V?FIND ,GUEST>
+		<RTRUE>)>>
 
 <ROOM HALLWAY-13
       (IN ROOMS)

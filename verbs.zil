@@ -156,14 +156,13 @@ Copyright (C) 1984 Infocom, Inc.  All rights reserved."
 
 <ROUTINE V-VERSION ("AUX" (CNT 17))
 	 <TELL
-"SUSPECT: An Interactive Mystery|
+"SUSPECT|
+Infocom interactive fiction - a mystery story|
 Copyright (c) 1984 Infocom, Inc.  All rights reserved.|
 ">
-	 <COND (<NOT <==? <BAND <GETB 0 1> 8> 0>>
-		<TELL
-"Licensed to Tandy Corporation.|
-">)>
-	 <TELL "SUSPECT is a trademark of Infocom, Inc.|
+	 ;<COND (<NOT <==? <BAND <GETB 0 1> 8> 0>>
+		<TELL "Licensed to Tandy Corporation." CR>)>
+	 <TELL "SUSPECT is a registered trademark of Infocom, Inc.|
 Release number ">
 	 <PRINTN <BAND <GET 0 1> *3777*>>
 	 <TELL " / Serial number ">
@@ -731,7 +730,7 @@ tried to talk to " A ,PRSO "!" CR>)
 next to Impossible." CR>>
 
 <ROUTINE V-CALL-LOSE ()
-	 <TELL "You must use a verb." CR>>
+	 <TELL ,YOU-MUST "use a verb." CR>>
 
 <ROUTINE V-$CALL ("AUX" PER (MOT <>) (HERE? <>))
 	 <COND (<SET PER <CHARACTERIZE? ,PRSO>>
@@ -1015,10 +1014,13 @@ The telephone hangs up." CR>)
 		     (<SET DIR <DIR-FROM ,HERE ,PRSO>>
 		      <DO-WALK .DIR>
 		      <RTRUE>)
+		     (<OUTSIDE? ,HERE>
+		      <TELL
+"It's dark and confusing out here, you'll have to use directions." CR>)
 		     (ELSE
-		      <COND (,PLAYER-HIDING <PLAYER-GETS-UP>)>
+		      <PLAYER-GETS-UP>
 		      <ESTABLISH-GOAL ,PLAYER ,PRSO>
-		      <PERFORM ,V?CONTINUE>
+		      <V-CONTINUE>
 		      <RTRUE>)>)
 	      (<FSET? ,PRSO ,DOORBIT>
 	       <COND (<FSET? ,PRSO ,LOCKED>
@@ -1044,8 +1046,10 @@ The telephone hangs up." CR>)
 	       <TELL "You hit your head against " THE ,PRSO
 		     " as you try it." CR>)
 	      (<IN? ,PRSO ,WINNER>
-	       <TELL "You must think you're a contortionist!" CR>)
+	       <TELL ,YOU-MUST "think you're a contortionist!" CR>)
 	      (ELSE <TELL <PICK-ONE ,YUKS> CR>)>>
+
+<GLOBAL YOU-MUST "You must ">
 
 <ROUTINE V-CONTINUE ("AUX" GT OL WHERE OS OI GF DIR)
 	 <SET GT <GET ,GOAL-TABLES ,PLAYER-C>>
@@ -1197,9 +1201,9 @@ The telephone hangs up." CR>)
 		      (T <TELL
 "I thought reporters always knew their way around!" CR>)>)
 	       (<AND <EQUAL? <META-LOC ,PRSO> ,HERE>
-		     <NOT <EQUAL? ,PRSO ,PULSE>>>
-		<TELL "It's right">
-		<TELL-HERE>)>>
+		     <NOT <EQUAL? ,PRSO ,PULSE>>
+		     <NOT <SEE-INSIDE? <LOC ,PRSO>>>>
+		<NOT-HERE ,PRSO>)>>
 
 <GLOBAL WHAT-DO-YOU-MEAN "What do you mean? She's dead!">
 
@@ -1595,7 +1599,10 @@ CD ,PRSO " is taking part in " A ,DISCUSSION "." CR>)
        (<==? ,PRSO ,HALLWAY>
 	<COND (<NOT <CORRIDOR-LOOK>>
 	       <TELL "There's no one there." CR>)>)
-       (T <TELL "It has been a long week, hasn't it?" CR>)>>
+       (T <TELL-LONG-WEEK>)>>
+
+<ROUTINE TELL-LONG-WEEK ()
+	 <TELL "It has been a long week, hasn't it?" CR>>
 
 <ROUTINE TELL-CLOSED ()
 	 <TELL
@@ -1707,8 +1714,7 @@ CTHE ,PRSO " is empty." CR>)>)
 	 <COND (<FSET? ,PRSO ,PERSON>
 		<TELL <PICK-ONE ,YUKS> CR>)
 	       (<NOT <==? ,PRSO ,ROOMS>>
-		<TELL "It has been a long week, hasn't it?" CR>
-		<RTRUE>)
+		<TELL-LONG-WEEK>)
 	       (<==? <GETP ,HERE ,P?LINE> ,OUTSIDE-LINE-C>
 		<PERFORM ,V?EXAMINE ,WEATHER>
 		<RTRUE>)
@@ -1723,7 +1729,7 @@ plastered." CR>)>>
 	       <PERFORM ,V?MAKE ,PLAYER ,PRSO>)
 	      (T
 	       <TELL
-"\"Eat, drink, and make merry, for tomorrow we shall die!\"" CR>)>>
+"\"Eat, drink, and be merry,\" eh?" CR>)>>
 
 <ROUTINE PRE-MOVE ()
 	 <COND (<HELD? ,PRSO>
@@ -1812,13 +1818,15 @@ come to your unhealthy mind, forbids it." CR>)
 <ROUTINE PRE-READ ("AUX" VAL)
 	 <COND (<OUTSIDE? ,HERE>
 		<TELL "It's impossible to read in the dark." CR>)
-	       (<IN? ,PRSO ,GLOBAL-OBJECTS>
-		<NOT-HERE ,PRSO>)
 	       (<AND ,PRSI
 		     <NOT <FSET? ,PRSI ,TRANSBIT>>
 		     <NOT <==? ,PRSI ,INTNUM>>>	;"? INTNUM?"
 		<TELL
-"You must have a swell method of looking through " THE ,PRSI "." CR>)>>
+,YOU-MUST "have a swell method of looking through " THE ,PRSI "." CR>)
+	       (<EQUAL? <LOC ,PRSO> ,WINNER ,ROOMS> <>)
+	       (<OR <IN? ,PRSO ,GLOBAL-OBJECTS>
+		    <NOT <SEE-INSIDE? <LOC ,PRSO>>>>
+		<NOT-HERE ,PRSO>)>>
 
 <ROUTINE V-READ ()
 	 <COND (<NOT <FSET? ,PRSO ,READBIT>>
@@ -1926,7 +1934,9 @@ come to your unhealthy mind, forbids it." CR>)
 		<TELL "That isn't something to sit on!" CR>)>>
 
 <ROUTINE V-SLAP ()
-	 <COND (<FSET? ,PRSO ,PERSON>
+	 <COND (<NOT <IN? ,PRSO ,HERE>>
+		<TELL "What " ,PRSO "?" CR>)
+	       (<FSET? ,PRSO ,PERSON>
 		<TELL
 CD ,PRSO " slaps you right back. It hurts, too." CR>)
 	       (T
@@ -2147,10 +2157,10 @@ running! You try it once more, just to make sure. Bravo!" CR>)
 		<TELL-YOU-CANT "turn off " <>>
 		<TELL-PRSO>)>>
 
-<ROUTINE V-TURN-UP ()
+;<ROUTINE V-TURN-UP ()
 	 <TELL "That's silly." CR>>
 
-<ROUTINE V-TURN-DOWN ()
+;<ROUTINE V-TURN-DOWN ()
 	 <TELL "That's silly." CR>>
 
 <ROUTINE PRE-UNLOCK ()
@@ -2586,7 +2596,7 @@ a rabies tag, so you're safe.">)>
 "Your revelation of " D ,PRSO " does not seem to interest " D ,PRSI "." CR>)
 	       (ELSE
 		<TELL
-"You must be pretty anxious to talk about it, if you're telling "
+,YOU-MUST "be pretty anxious to talk about it, if you're telling "
 THE ,PRSI "." CR>)>>
 
 <ROUTINE V-$REVEAL ()

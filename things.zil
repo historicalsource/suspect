@@ -117,6 +117,9 @@ Copyright (C) 1984 Infocom, Inc.  All rights reserved."
 		      <COND (<==? .OBJ ,NOT-HERE-OBJECT> <RTRUE>)
 			    (.PRSO? <SETG PRSO .OBJ>)
 			    (T <SETG PRSI .OBJ>)>)
+		     (<NOT ,P-NAM>
+		      <TELL-NO-NOUNS>
+		      <RTRUE>)
 		     (ELSE
 		      <WHICH-PRINT 0 .M-F .TBL>
 		      <SETG P-ACLAUSE

@@ -138,7 +138,10 @@ Copyright (c) 1984 Infocom, Inc.  All rights reserved."
 	 <SET L <- .L 1>>
 	 <SET FROB <REST .FROB 2>>
 	 <SET RFROB <REST .FROB <* .CNT 2>>>
-	 <SET RND <RANDOM <- .L .CNT>>>
+	 <SET RND
+	      <COND (<G? ,PRESENT-TIME 540>
+		     <RANDOM <- .L .CNT>>)
+		    (ELSE 1)>>
 	 <SET MSG <GET .RFROB .RND>>
 	 <PUT .RFROB .RND <GET .RFROB 1>>
 	 <PUT .RFROB 1 .MSG>
@@ -148,7 +151,8 @@ Copyright (c) 1984 Infocom, Inc.  All rights reserved."
 	 .MSG>
 
 <ROUTINE PROB (BASE)
-	 <NOT <L? .BASE <RANDOM 100>>>>
+	 <AND <G? ,PRESENT-TIME 540>
+	      <NOT <L? .BASE <RANDOM 100>>>>>
 
 <DEFMAC ENABLE ('INT) <FORM PUT .INT ,C-ENABLED? 1>>
 

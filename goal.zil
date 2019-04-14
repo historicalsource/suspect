@@ -564,7 +564,9 @@ for the various characters, using the MOVEMENT-GOALS table."
 		<COND (<L? <SET VAR <GET .TB ,MG-VARIATION>> 0>
 		       <SET VAR <- .VAR>>
 		       <SET FLAG T>)>
-		<SET DIS <COND (<G? .VAR 0> <RANDOM <* .VAR 2>>)
+		<SET DIS <COND (<AND <G? .VAR 0>
+				     <G? ,PRESENT-TIME 540>>
+				<RANDOM <* .VAR 2>>)
 			       (ELSE 0)>>
 	        <ENABLE <QUEUE .INT <+ .TIM <- .DIS .VAR>>>>
 		<PUT ,MOVEMENT-GOALS .ID <REST .TB ,MG-LENGTH>>

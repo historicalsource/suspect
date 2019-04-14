@@ -355,7 +355,7 @@ arrived." CR>)
 		<COND (<VERB? HELLO>
 		       <COND (<FSET? ,MICHAEL ,TOLD>
 			      <TELL
-"\"How could this have happened? You must feel lucky, something like
+"\"How could this have happened? " ,YOU-MUST "feel lucky, something like
 this happening when you're here, but it's horrible, horrible!\"" CR>)
 			     (T
 			      <TELL
@@ -1163,10 +1163,12 @@ CTHE ,DETECTIVE ,STOPS-YOU CR>)
 	       (<VERB? DROP>
 		<MOVE ,PRSO ,HERE>
 		<TELL "The body drops like a sack of potatoes." CR>)
-	       (<AND <VERB? SLAP KILL MUNG ATTACK TIE-WITH TIE-TO>
+	       (<VERB? POUR-ON THROW MUNG>
+		<TELL "That might destroy evidence." CR>)
+	       (<AND <VERB? SLAP KILL ATTACK TIE-WITH TIE-TO>
 		     <EQUAL? ,PRSO ,CORPSE>>
 		<TELL
-"You haven't been paying very close attention, have you?" CR>)
+"She's quite dead already, you know." CR>)
 	       (<AND <VERB? THROW-AT> <EQUAL? ,PRSI ,CORPSE>>
 		<MOVE ,PRSO ,HERE>
 		<TELL "That wasn't very sporting." CR>)
@@ -1568,7 +1570,7 @@ think you're doing?\" she asks, frostily." CR>)
 	 <COND (<EQUAL? ,WINNER ,ALICIA>
 		<COND (<VERB? HELLO>
 		       <TELL
-"\"Hello. You must be the reporter " 'VERONICA " said was coming tonight.\"" CR>)
+"\"Hello. " ,YOU-MUST "be the reporter " 'VERONICA " said was coming tonight.\"" CR>)
 		      (<AND <VERB? GIVE>
 			    <EQUAL? ,PRSO ,ALICIA-COAT>
 			    <EQUAL? ,PRSI ,BUTLER>>
@@ -2066,7 +2068,7 @@ right?\"" CR>)
 instead, she's interesting: she's the Dragon Lady, not the Fairy Queen.\"" CR>)
 		      (<IN? ,PRSI ,HERE>
 		       <TELL
-"\"Are you trying to cause trouble? You must think I'm drunk and will say
+"\"Are you trying to cause trouble? " ,YOU-MUST "think I'm drunk and will say
 anything about anyone.\"" CR>)
 		      (<EQUAL? ,PRSI ,GLOBAL-MICHAEL>
 		       <TELL
@@ -2513,7 +2515,7 @@ over without Richard.\"">)
 	(IN GLOBAL-OBJECTS)
 	(DESC "Senator Asher")
 	(SYNONYM ASHER HARLEQUIN ALAN AL)
-	(ADJECTIVE SENATOR ALAN AL)
+	(ADJECTIVE SENATOR SEN ALAN AL)
 	(ACTION GLOBAL-PERSON-F)
 	(FLAGS TRANSBIT PERSON)
 	(CHARACTER 7)>
@@ -2567,7 +2569,7 @@ though he had been punched." CR>)
 revelation." CR>)>)
 	       (<AND <VERB? ACCUSE> <EQUAL? ,PRSI ,GLOBAL-MURDER>>
 		<TELL
-"\"You must be insane. Sure, I was in the next room when it happened.
+"\"" ,YOU-MUST "be insane. Sure, I was in the next room when it happened.
 How do you suppose that makes me feel? I was in love with her once...
 I suppose I still am. I could no more kill her than, than...\" He chokes
 back a sob." CR>)
@@ -4248,8 +4250,8 @@ to conduct.\"" CR>)
 			    <SET FLG
 				 <PLAYER-ARRESTED? ,DETECTIVE .GARG>>>
 		       <RTRUE>)>
-		<COND (<IN? ,DETECTIVE ,HERE>
-		       <LAB-RESULTS-TO-PLAYER .GARG>
+		<COND (<AND <IN? ,DETECTIVE ,HERE>
+			    <LAB-RESULTS-TO-PLAYER .GARG>>
 		       <SET GARG ,G-ALREADY>)>
 		<COND (<IN? ,DETECTIVE ,PORCH>
 		       <SETG NEW-ARRIVAL ,DETECTIVE>
